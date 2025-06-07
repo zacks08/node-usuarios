@@ -1,92 +1,132 @@
-<h1>👤 API de Usuários</h1>
 
-<p>
-API REST para cadastro, consulta, atualização e remoção de usuários, desenvolvida com <strong>Node.js</strong>, <strong>Express</strong> e <strong>Prisma ORM</strong> utilizando <strong>MongoDB</strong>.
-</p>
+# 👤 API de Usuários
 
-<h2>✨ Funcionalidades</h2>
-<ul>
-  <li>Cadastro de usuários</li>
-  <li>Listagem de todos os usuários</li>
-  <li>Consulta de usuários por filtros (nome, email, idade)</li>
-  <li>Atualização de usuário por ID</li>
-  <li>Remoção de usuário por ID</li>
-</ul>
+API REST para cadastro, consulta, atualização e remoção de usuários, desenvolvida com **Node.js**, **Express** e **Prisma ORM** utilizando **MongoDB**.
 
-<h2>🚀 Tecnologias Utilizadas</h2>
-<ul>
-  <li>Node.js</li>
-  <li>Express</li>
-  <li>Prisma ORM</li>
-  <li>MongoDB</li>
-</ul>
+---
 
-<h2>📦 Instalação</h2>
-<ol>
-  <li>Clone o repositório<br>
-    <code>git clone https://github.com/seu-usuario/api-usuarios.git</code><br>
-    <code>cd api-usuarios</code>
-  </li>
-  <li>Instale as dependências<br>
-    <code>npm install</code>
-  </li>
-</ol>
+## ✨ Funcionalidades
 
-<h3>⚙️ Configuração do Banco de Dados</h3>
-<ol>
-  <li>Crie um arquivo <code>.env</code> na raiz do projeto:<br>
-    <code>DATABASE_URL="mongodb+srv://&lt;usuario&gt;:&lt;senha&gt;@&lt;cluster&gt;.mongodb.net/Users"</code>
-  </li>
-  <li>Gere o Prisma Client e atualize o banco:<br>
-    <code>npx prisma generate</code><br>
-    <code>npx prisma db push</code>
-  </li>
-  <li>Inicie o servidor:<br>
-    <code>node --watch server.js</code><br>
-    O servidor rodará na porta <strong>3000</strong>.
-  </li>
-</ol>
+- ✅ Cadastro de usuários  
+- ✅ Listagem de todos os usuários  
+- ✅ Consulta de usuários por filtros (nome, email, idade)  
+- ✅ Atualização de usuário por ID  
+- ✅ Remoção de usuário por ID  
 
-<h2>📚 Rotas da API</h2>
+---
 
-<h3>➕ Criar usuário</h3>
-<p><code>POST /usuarios</code></p>
-<pre>
+## 🚀 Tecnologias Utilizadas
+
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- [MongoDB](https://www.mongodb.com/)
+
+---
+
+## 📦 Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/api-usuarios.git
+cd api-usuarios
+
+# Instale as dependências
+npm install
+````
+
+### ⚙️ Configuração do Banco de Dados
+
+1. Crie um arquivo `.env` na raiz do projeto:
+
+   ```
+   DATABASE_URL="mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/Users"
+   ```
+
+2. Gere o Prisma Client e atualize o banco:
+
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+3. Inicie o servidor:
+
+   ```bash
+   node --watch server.js
+   ```
+
+   O servidor rodará na porta **3000**.
+
+---
+
+## 📚 Rotas da API
+
+### ➕ Criar usuário
+
+`POST /usuarios`
+
+```json
 {
   "email": "exemplo@email.com",
   "name": "Isaac",
   "age": "25"
 }
-</pre>
+```
 
-<h3>📋 Listar todos os usuários</h3>
-<p><code>GET /usuarios</code></p>
-<p>Parâmetros de consulta opcionais: <code>name</code>, <code>email</code>, <code>age</code></p>
+---
 
-<h3>✏️ Atualizar usuário</h3>
-<p><code>PUT /usuarios/:id</code></p>
-<pre>
+### 📋 Listar todos os usuários
+
+`GET /usuarios`
+
+Parâmetros de consulta opcionais: `name`, `email`, `age`
+
+---
+
+### 🔎 Listar usuário por ID
+
+`GET /usuarios/:id`
+
+---
+
+### ✏️ Atualizar usuário
+
+`PUT /usuarios/:id`
+
+```json
 {
   "email": "novo@email.com",
   "name": "Novo Nome",
   "age": "30"
 }
-</pre>
+```
 
-<h3>❌ Deletar usuário</h3>
-<p><code>DELETE /usuarios/:id</code></p>
+---
 
-<h2>ℹ️ Observações</h2>
-<ul>
-  <li>O campo <code>age</code> está como <code>String</code> no banco, mas pode ser ajustado conforme necessidade.</li>
-  <li>O projeto utiliza MongoDB Atlas, mas pode ser adaptado para outros bancos suportados pelo Prisma.</li>
-  <li>Para consultar usuários por filtros, utilize parâmetros de query na rota <code>GET /usuarios</code>.</li>
-</ul>
+### ❌ Deletar usuário
 
-<h2>👨‍💻 Autor</h2>
-<p>Desenvolvido por <a href="https://github.com/zacks08">Isaac</a> 🚀</p>
+`DELETE /usuarios/:id`
 
-<p><em>Sinta-se à vontade para contribuir, sugerir melhorias ou reportar issues!</em></p>
+---
 
-<hr>
-<p style="font-size:small;">© 2025 GitHub Copilot. Este README foi gerado com o auxílio da inteligência artificial GitHub Copilot para fins educacionais e profissionais.</p>
+## ℹ️ Observações
+
+* O campo `age` está como `String` no banco, mas pode ser ajustado conforme necessidade.
+* O projeto utiliza MongoDB Atlas, mas pode ser adaptado para outros bancos suportados pelo Prisma.
+* Para aplicar filtros na listagem, utilize parâmetros de query na rota `GET /usuarios`.
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por [Isaac](https://github.com/zacks08) 🚀
+
+---
+
+> *Sinta-se à vontade para contribuir, sugerir melhorias ou reportar issues!*
+
+© 2025 GitHub Copilot. Este README foi gerado com o auxílio da inteligência artificial GitHub Copilot para fins educacionais e profissionais.
+
+
+
