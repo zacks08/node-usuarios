@@ -1,7 +1,18 @@
-
 # 👤 API de Usuários
 
 API REST para cadastro, consulta, atualização e remoção de usuários, desenvolvida com **Node.js**, **Express** e **Prisma ORM** utilizando **MongoDB**.
+
+---
+
+## 🆕 O que foi alterado nesta versão?
+
+- Atualização e organização das dependências do projeto.
+- Refatoração completa do código para separar responsabilidades (rotas, controllers, serviços).
+- Comentários detalhados em todo o código para facilitar manutenção e entendimento.
+- Otimização dos processos de acesso ao banco de dados com Prisma.
+- Melhoria na estrutura de pastas e arquivos para facilitar escalabilidade.
+- Testes completos dos endpoints realizados via Postman.
+- Documentação atualizada para facilitar o uso e a contribuição.
 
 ---
 
@@ -24,6 +35,8 @@ API REST para cadastro, consulta, atualização e remoção de usuários, desenv
 
 ---
 
+
+
 ## 📦 Instalação
 
 ```bash
@@ -33,14 +46,16 @@ cd api-usuarios
 
 # Instale as dependências
 npm install
-````
+```
 
-### ⚙️ Configuração do Banco de Dados
+---
+
+## ⚙️ Configuração do Banco de Dados
 
 1. Crie um arquivo `.env` na raiz do projeto:
 
    ```
-   DATABASE_URL="mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/Users"
+   DATABASE_URL="mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/SeuBanco"
    ```
 
 2. Gere o Prisma Client e atualize o banco:
@@ -50,13 +65,16 @@ npm install
    npx prisma db push
    ```
 
-3. Inicie o servidor:
+---
 
-   ```bash
-   node --watch server.js
-   ```
+## ▶️ Como rodar o projeto
 
-   O servidor rodará na porta **3000**.
+```bash
+# Inicie o servidor (ajuste o caminho se necessário)
+node src/server.js
+```
+
+O servidor rodará na porta **3000** por padrão.
 
 ---
 
@@ -70,7 +88,7 @@ npm install
 {
   "email": "exemplo@email.com",
   "name": "Isaac",
-  "age": "25"
+  "age": 25
 }
 ```
 
@@ -98,7 +116,7 @@ Parâmetros de consulta opcionais: `name`, `email`, `age`
 {
   "email": "novo@email.com",
   "name": "Novo Nome",
-  "age": "30"
+  "age": 30
 }
 ```
 
@@ -110,9 +128,15 @@ Parâmetros de consulta opcionais: `name`, `email`, `age`
 
 ---
 
+## 🧪 Testes
+
+Todos os endpoints foram testados utilizando o Postman, garantindo o correto funcionamento das operações de CRUD.
+
+---
+
 ## ℹ️ Observações
 
-* O campo `age` está como `String` no banco, mas pode ser ajustado conforme necessidade.
+* O campo `age` está como `Int` no banco, conforme definido no schema Prisma.
 * O projeto utiliza MongoDB Atlas, mas pode ser adaptado para outros bancos suportados pelo Prisma.
 * Para aplicar filtros na listagem, utilize parâmetros de query na rota `GET /usuarios`.
 
@@ -127,6 +151,3 @@ Desenvolvido por [Isaac](https://github.com/zacks08) 🚀
 > *Sinta-se à vontade para contribuir, sugerir melhorias ou reportar issues!*
 
 © 2025 GitHub Copilot. Este README foi gerado com o auxílio da inteligência artificial GitHub Copilot para fins educacionais e profissionais.
-
-
-
