@@ -1,98 +1,74 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import express from "express";
+import { PrismaClient } from "@prisma/client";
+import dotenv from "dotenv";
 
+dotenv.config();
 const prisma = new PrismaClient();
-
-async function main() {
-  const users = await prisma.user.findMany();
-  console.log(users);
-}
-
-main()
-  .catch((e) => console.error(e))
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
-
 const app = express();
+app.use(express.json());
 
-
-app.use(express.json())
-
-app.post('/usuarios',async (req, res) => { 
-    
-await   prisma.user.create({
-        data: {
-            email: req.body.email,
-            name: req.body.name,
-            age: req.body.age
-        }
-    })
-
-    res.status(201).json(req.query)
-})
-
-app.get('/usuarios',async (req, res) => {
-  let users = []
- if(req.query){
-    users=await prisma.user.findMany({
-      where:{
-        name: req.query.name,
-        email: req.query.email,
-        age: req.query.age
+// Rota raiz para mostrar que a API está funcionando
+app.get("/", (req, res) => {
+  res.json({
+    message: "API de Usuários funcionando!",
+    endpoints: {
+      "GET /": "Esta mensagem",
+      "GET /usuarios": "Listar todos os usuários",
+      "POST /usuarios": "Criar novo usuário",
+      "PUT /usuarios/:id": "Atualizar usuário",
+      "DELETE /usuarios/:id": "Deletar usuário",
     },
-    })
-
- }else{
-  const users = await prisma.user.findMany()
-
- }
-
-
-
-
-    res.status(200).json(users) 
+  });
 });
 
-app.put('/usuarios/:id',async (req, res) => { 
-    
-  await   prisma.user.update(
-    {     where:{
-      id:req.params.id
+app.post("/usuarios", async (req, res) => {
+  try {
+    const user = await prisma.user.create({ data: req.body });
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ error: "Erro ao criar usuário" });
+  }
+});
 
-    },
-          data: {
-              email: req.body.email,
-              name: req.body.name,
-              age: req.body.age
-          }
-      })
-  
-      res.status(201).json(req.query)
-  })
+app.get("/usuarios", async (req, res) => {
+  try {
+    const where = {};
+    if (req.query.name) where.name = req.query.name;
+    if (req.query.email) where.email = req.query.email;
+    if (req.query.age) where.age = Number(req.query.age);
+    const users = await prisma.user.findMany({ where });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar usuários" });
+  }
+});
 
-  app.delete('/usuarios/:id', async (req, res) => {
-    try {
-      const { id } = req.params;
-  
-      // Deleta o usuário com base no ID
-      const deletedUser = await prisma.user.delete({
-        where: {
-          id: req.params.id 
-        },
-      });
-  
-      res.status(200).json({ message: 'Usuário deletado com sucesso', user: deletedUser });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao deletar o usuário' });
-    }
-  });
+app.put("/usuarios/:id", async (req, res) => {
+  try {
+    const user = await prisma.user.update({
+      where: { id: req.params.id },
+      data: req.body,
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: "Erro ao atualizar usuário" });
+  }
+});
 
+app.delete("/usuarios/:id", async (req, res) => {
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: { id: req.params.id },
+    });
+    res.status(200).json({ message: "Usuário deletado com sucesso", user: deletedUser });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao deletar o usuário" });
+  }
+});
 
-  
-
-app.listen(3000)
+app.listen(3000, () => {
+  console.log("Servidor rodando na porta 3000");
+});
 
 /* Criar api de usuarios 
     criar usuario
@@ -101,6 +77,8 @@ app.listen(3000)
    deletar usuario
 
 
-   usuario:isaac
-   senha:sarah2909
+   usuario:isaacisaacdevcontato08
+   senha:L8xjCux8c8mxxvDZsarah2909
+  isaac
+   J2lVCGikyeSH4N88
 */
