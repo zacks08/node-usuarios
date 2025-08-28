@@ -1,11 +1,15 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
+import cors from "cors";
+
 
 dotenv.config();
 const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 
 // Rota raiz para mostrar que a API está funcionando
 app.get("/", (req, res) => {
@@ -23,10 +27,12 @@ app.get("/", (req, res) => {
 
 app.post("/usuarios", async (req, res) => {
   try {
+    console.log("📥 Dados recebidos no backend:", req.body); // 👈 log para debug
     const user = await prisma.user.create({ data: req.body });
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ error: "Erro ao criar usuário" });
+    console.error("❌ Erro ao criar usuário:", error);
+    res.status(400).json({ error: "Erro ao criar usuário", details: error.message });
   }
 });
 
